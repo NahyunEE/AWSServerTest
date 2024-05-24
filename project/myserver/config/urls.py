@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from BMSmonitor import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('front/',views.show_cell_data),
+    path('update/',views.update_cell_data),
+    path('frontupdate/',views.real_time_update),
+    
 ]
