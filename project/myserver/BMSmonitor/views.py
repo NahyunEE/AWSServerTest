@@ -4,6 +4,9 @@ from BMSmonitor.models import *
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 
+queue = [40,50,60,50,50,50,50,50,50,50,50,60,60]
+
+
 
 def index(request):
     return HttpResponse("HelloWorld")
@@ -24,9 +27,16 @@ def update_cell_data(request):
         c0_soc = c0_voltage -5
         c1_soc = c1_voltage -5
         c2_soc = c2_voltage -5
-        c3_soc = c3_voltage -5
+        c3_soc = c3_voltage -5  
         
+        total_soc = int((c0_soc + c1_soc + c2_soc + c3_soc)/4)
+        
+        if(len(queue)>=10):
+            queue.pop(0)
+            queue.append(total_soc)
       
+        
+        
         
         
         
@@ -49,12 +59,12 @@ def update_cell_data(request):
             }
         )
         
-        print(c0_voltage)
-        print(c1_voltage)
-        print(c2_voltage)
-        print(c3_voltage)
-        print(temp)
-        print(chargeFlag)     
+      #  print(c0_voltage)
+      #  print(c1_voltage)
+      #  print(c2_voltage)
+      #  print(c3_voltage)
+      #  print(temp)
+       # print(chargeFlag)     
         
 
         if created:
@@ -68,14 +78,33 @@ def update_cell_data(request):
 def show_cell_data(request):
     # 최근에 업데이트된 Cell 데이터 가져오기
     latest_cell_data = Module.objects.last()
-  
-    return render(request, 'BatteryData.html', {'cell_data': latest_cell_data}) 
-     
-def real_time_update(request):
     
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        data = {"temperature": Module.objects.id('1').temperature}
-        return JsonResponse(data)
-    else:
-        return JsonResponse({'ERROR':'Invalid Request'}, status=400)
+    dict = {
+        "index0" : queue[0],
+        "index1" : queue[1],
+        "index2" : queue[2],
+        "index3" : queue[3],
+        "index4" : queue[4],
+        "index5" : queue[5],
+        "index6" : queue[6],
+        "index7" : queue[7],
+        "index8" : queue[8],
+        "index9" : queue[9],
+        "index10" : queue[10],
+        "index11" : queue[11],
+        "index12" : queue[12],
+       
+
+        
+    }
+    
+   
+    
+    
+    
+
+  
+    return render(request, 'BatteryData.html', {'cell_data': latest_cell_data,'charts':dict}) 
+     
+
  
