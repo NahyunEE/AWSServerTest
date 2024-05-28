@@ -13,36 +13,48 @@ def update_cell_data(request):
     
     if request.method == 'POST':
         # POST 요청에서 데이터 가져오기
-        module_id = request.POST.get('module_id')  # 배터리 모듈 ID
-        M0_C0_voltage= request.POST.get('M0_C0_V')
-        M0_C0_SOC = request.POST.get('M0_C0_SOC')
-        M0_C1_voltage= request.POST.get('M0_C1_V')
-        M0_C1_SOC = request.POST.get('M0_C1_SOC')
-        M0_C2_voltage= request.POST.get('M0_C2_V')
-        M0_C2_SOC = request.POST.get('M0_C2_SOC')
-        M0_C3_voltage= request.POST.get('M0_C3_V')
-        M0_C3_SOC = request.POST.get('M0_C3_SOC')
+        c0_voltage = float(request.POST.get('cell0_voltage'))  # 배터리 모듈 ID
+        c1_voltage= float(request.POST.get('cell1_voltage'))
+        c2_voltage= float(request.POST.get('cell1_voltage'))
+        c3_voltage= float(request.POST.get('cell1_voltage'))
+        temp = float(request.POST.get('temperature'))
+        chargeFlag = float(request.POST.get('chargeFlag'))
+        
+        
+        c0_soc = c0_voltage -5
+        c1_soc = c1_voltage -5
+        c2_soc = c2_voltage -5
+        c3_soc = c3_voltage -5
+        
+      
+        
+        
         
         module, created = Module.objects.update_or_create(
-            moduleId=module_id,  # 모듈 식별을 위한 필드
+             # 모듈 식별을 위한 필드
+          
             defaults={
                
-                'cell0_voltage': M0_C0_voltage,
-                'cell0_soc': M0_C0_SOC,
-                'cell1_voltage': M0_C1_voltage,
-                'cell1_soc':M0_C1_SOC,
-                'cell2_voltage': M0_C2_voltage,
-                'cell2_soc': M0_C2_SOC,
-                'cell3_voltage': M0_C3_voltage,
-                'cell3_soc':M0_C3_SOC,
+                'cell0_voltage': c0_voltage,
+                'cell0_soc':c0_soc,
+                'cell1_voltage': c1_voltage,
+                'cell1_soc':c1_soc,
+                'cell2_voltage': c2_voltage,
+                'cell2_soc':c2_soc,
+                'cell3_voltage': c3_voltage,
+                'cell3_soc':c3_soc,
+                'charge_flag' : chargeFlag,
+                'temperature':temp,
                
             }
         )
         
-        print(M0_C0_voltage)
-        print(M0_C0_SOC)
-        print(M0_C1_voltage)
-        print(M0_C1_SOC)
+        print(c0_voltage)
+        print(c1_voltage)
+        print(c2_voltage)
+        print(c3_voltage)
+        print(temp)
+        print(chargeFlag)     
         
 
         if created:

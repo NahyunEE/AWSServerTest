@@ -6,7 +6,6 @@ class Module(models.Model):
     #max_digit =허용자릿수
     #decimal_palce = 소수점 아래값
        
-    moduleId = models.DecimalField(max_digits=10, decimal_places=2,unique=True)  #Module ID
   
      # Cell 0 attributes
     cell0_soc = models.DecimalField(max_digits=5, decimal_places=2, help_text="State of Charge for Cell 0")
@@ -21,7 +20,11 @@ class Module(models.Model):
     cell3_soc = models.DecimalField(max_digits=5, decimal_places=2, help_text="State of Charge for Cell 3")
     cell3_voltage = models.DecimalField(max_digits=5, decimal_places=2, help_text="Voltage for Cell 3")
     
- 
-
+    #Charging Flag
+    charge_flag = models.DecimalField(max_digits=5, decimal_places=2, help_text="Charge Flag")
+    
+    #temperature 
+    temperature = models.DecimalField(max_digits=5, decimal_places=2, help_text="Charge Flag")
+    
     def __str__(self):
         return f"Module ID: {self.moduleId}"
