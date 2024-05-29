@@ -24,10 +24,10 @@ def update_cell_data(request):
         chargeFlag = float(request.POST.get('chargeFlag'))
         
         
-        c0_soc = c0_voltage -5
-        c1_soc = c1_voltage -5
-        c2_soc = c2_voltage -5
-        c3_soc = c3_voltage -5  
+        c0_soc = c0_voltage
+        c1_soc = c1_voltage 
+        c2_soc = c2_voltage 
+        c3_soc = c3_voltage 
         
         total_soc = int((c0_soc + c1_soc + c2_soc + c3_soc)/4)
         
