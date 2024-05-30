@@ -16,7 +16,7 @@ def update_cell_data(request):
     
     if request.method == 'POST':
         # POST 요청에서 데이터 가져오기
-        c0_voltage = float(request.POST.get('cell0_voltage'))  # 배터리 모듈 ID
+        c0_voltage = float(request.POST.get('cell0_voltage'))  
         c1_voltage= float(request.POST.get('cell1_voltage'))
         c2_voltage= float(request.POST.get('cell1_voltage'))
         c3_voltage= float(request.POST.get('cell1_voltage'))
@@ -92,18 +92,8 @@ def show_cell_data(request):
         "index9" : queue[9],
         "index10" : queue[10],
         "index11" : queue[11],
-        "index12" : queue[12],
-       
-
-        
-    }
-    
-   
-    
-    
-    
-
-  
+        "index12" : queue[12],       
+    }  
     return render(request, 'BatteryData.html', {'cell_data': latest_cell_data,'charts':dict}) 
      
 
